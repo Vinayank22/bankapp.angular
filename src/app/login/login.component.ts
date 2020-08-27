@@ -27,12 +27,14 @@ pwd="";
   passwdchng(event){
     //alert("pwdchanged");
     this.pwd=event.target.value;
-    alert(event.target.value)
+    //alert(event.target.value)
   }
 
   login(){
-    var acno=this.acno
-    var pwd=this.pwd
+    //console.log(abc.value);
+    //console.log(defg.value)// Template Referencing
+    var acno=parseInt(this.acno);
+    var pwd=this.pwd;
     alert(acno+","+pwd);
     var data=this.accountDetails;
     console.log(acno in data);

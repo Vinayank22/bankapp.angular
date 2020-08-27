@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col"></div>
-        <div class="col">Welcome to VBN </div>
+        <div class="col"><h1>Welcome to VBN</h1></div>
         <div class="col"></div>
     </div>
     <div class="jumbotron">
@@ -14,16 +14,17 @@
             <div class="col">
 
                 <div class="form-group">
+                    {{acno}}
                     <label for="accno">Account number</label>
-                    <input (change)= "validaccno($event)" class="form-control" id="accno" aria-describedby="emailHelp">
+                    <input [(ngModel)]="acno" name="accnos" class="form-control" id="accno" aria-describedby="emailHelp">
                     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                         else.</small>
                 </div>
                 <div class="form-group">
                     <label for="pint">password</label>
-                    <input (change)="passwdchng($event)" class="form-control" id="pint">
+                    <input [(ngModel)]="pwd" name="pwds" class="form-control" id="pint">
                 </div>
-                <button type="submit" class="btn btn-primary" (click)="login()">Submit</button>
+                <button type="login" class="btn btn-primary" (click)="login()">Submit</button>
 
 
 
@@ -44,3 +45,17 @@
 
 
 </body>
+
+<!-- input #acno type =text........
+<input #pwd type=password
+login(acno,pwd)
+In ts file 
+login(abc,def)
+var accno=abc.value;
+var pwwd=def.value
+This method is called Template referencing
+
+
+
+
+-->
