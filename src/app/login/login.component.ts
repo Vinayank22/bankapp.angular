@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '../services/data.service'
 
 @Component({
   selector: 'app-login',
@@ -7,18 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent {
 
- accountDetails={
-
-    1001:{name:"user1",acno:1001,pin:4387,password:"userone",balance:3000},
-    1002:{name:"user2",acno:1002,pin:1234,password:"usertwo",balance:3000},
-    1003:{name:"user3",acno:1003,pin:4567,password:"userthree",balance:3000},
-    1004:{name:"user4",acno:1004,pin:5678,password:"userfour",balance:3000},
-    1005:{name:"user5",acno:1005,pin:6789,password:"userfive",balance:3000}
-
-}
+ 
 acno="";
 pwd="";
-  constructor() { }
+  constructor(private router:Router,private dataService:DataService) { }
 
   validaccno(event){
     //alert("accno changed");
@@ -36,14 +30,15 @@ pwd="";
     var acno=parseInt(this.acno);
     var pwd=this.pwd;
     alert(acno+","+pwd);
-    var data=this.accountDetails;
+    var data=this.dataService.accountDetails;
     console.log(acno in data);
     if(acno in data){
         let pd=data[acno].password
         console.log(pd);
         if(pd==pwd){
             alert("login successfull");
-            window.location.href="userhome.html";
+            //window.location.href="userhome.html";
+            this.router.navigateByUrl("dashboard");
             
         }
          else{

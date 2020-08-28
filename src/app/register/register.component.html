@@ -1,0 +1,57 @@
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"><h1>Welcome to VBN Registration</h1></div>
+            <div class="col"></div>
+        </div>
+        <div class="jumbotron">
+    
+            <div class="row">
+    
+    
+                <div class="col"></div>
+                <div class="col">
+                    <form (ngSubmit)="register()">
+    
+                    <div class="form-group">
+                        <label for ="name">Name</label>
+                        <input [(ngModel)]="name" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="accno">Account number</label>
+                        <input [(ngModel)]="acno" name="accnos" class="form-control" id="accno" aria-describedby="emailHelp">
+                       
+                    </div>
+                    <div class="form-group">
+                        <label for="pin">Pin</label>
+                        <input [(ngModel)]="pin" name="pin" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="pint">password</label>
+                        <input [(ngModel)]="pwd" name="pwds" class="form-control" id="pint">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a routerLink="">Login</a>
+                    </form>
+    
+    
+    
+    
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    </div>
+    
+
+
+
+</body>
