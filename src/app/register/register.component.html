@@ -12,24 +12,28 @@
     
                 <div class="col"></div>
                 <div class="col">
-                    <form (ngSubmit)="register()">
+                    <form [formGroup]="registerForm" (ngSubmit)="register()">
     
                     <div class="form-group">
                         <label for ="name">Name</label>
-                        <input [(ngModel)]="name" name="name" class="form-control">
+                        <input formControlName="name" name="name" name="name" class="form-control">
+                      <div *ngIf="getError('name')" class="error">Name is Invalid</div>
                     </div>
                     <div class="form-group">
                         <label for="accno">Account number</label>
-                        <input [(ngModel)]="acno" name="accnos" class="form-control" id="accno" aria-describedby="emailHelp">
+                        <input formControlName="acno" name="accnos" class="form-control" id="accno" aria-describedby="emailHelp">
+                        <div *ngIf="getError('acno')" class="error">Name is Invalid</div>
                        
                     </div>
                     <div class="form-group">
                         <label for="pin">Pin</label>
-                        <input [(ngModel)]="pin" name="pin" class="form-control">
+                        <input formControlName="pin" name="pin" class="form-control">
+                        <div *ngIf="getError('pin')" class="error">Name is Invalid</div>
                     </div>
                     <div class="form-group">
                         <label for="pint">password</label>
-                        <input [(ngModel)]="pwd" name="pwds" class="form-control" id="pint">
+                        <input formControlName="pwd" name="pwds" class="form-control" id="pint">
+                        <div *ngIf="getError('pwd')" class="error">Name is Invalid</div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                     <a routerLink="">Login</a>

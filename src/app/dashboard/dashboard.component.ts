@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
  acno="";
  pin="";
  amt="";
-  constructor(private dataService:DataService) { }
+  constructor(public dataService:DataService) { }
 
   acnoSet(event)
   {

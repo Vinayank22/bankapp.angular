@@ -15,6 +15,8 @@ export class DataService {
 
 }
 
+currentUser;
+
   constructor() { }
 
   register(name,acno,pin,pwd){
@@ -34,4 +36,24 @@ export class DataService {
     return true;
   }
 
+
+  login(acno1,pwd){
+    //console.log(abc.value);
+    //console.log(defg.value)// Template Referencing
+    var acno=parseInt(acno1);
+  
+    var data=this.accountDetails;
+    console.log(acno in data);
+    if(acno in data){
+      let pd=data[acno].password
+      console.log(pd);
+      if(pd==pwd){
+        this.currentUser=data[acno];
+       return true;
+      
+      }
+    }
+  }
 }
+      
+
