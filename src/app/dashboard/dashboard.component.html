@@ -4,55 +4,78 @@
         <div class ="row">
             <div class ="col">
                <h1> Deposit </h1>
+               <div class="jumbotron">
                <h3>Welcome {{dataService.currentUser.name}}</h3>
-            
+                <form [formGroup]="dashboardForm" (ngSubmit)="deposit()">
                 <table>
                     <tr>
                     <td>accno</td>
-                    <td><input (change)= "acnoSet($event)" type="text"></td>
+                    <div>
+                    <td><input formControlName="acno" type="text"></td>
+                    </div>
+                    <div *ngIf="getError('acno')" class="error">Accnumber is Invalid</div>
                     </tr>
                     <tr>
                         <td>Pin</td>
-                        <td><input (change)="pinSet($event)" type="text" id ="pin"></td>
+                        <div>
+                        <td><input formControlName="pin" type="text" id ="pin"></td>
+                        </div>
+                        <div *ngIf="getError('pin')" class="error">Pin is Invalid</div>
                      </tr>
                     <tr>
                         <td>Amount</td>
-                        <td><input (change)="amtSet($event)" type="text" id="amt"> </td>
+                        <td><input formControlName="amt" type="text" id="amt"> </td>
                      </tr>
                     <tr>
-                       <td><input type="button" (click)="deposit()" value="proceed"></td>
+                       <td><button type="submit" class="btn-btn-primary">Proceed</button></td>
 
                         
                     </tr>
                 </table>
+                </form>
+                </div>
 
                 
             </div>
                 <div class ="col">
                     <h1>Withdraw</h1>
+                    <div class="jumbotron">
+                    <h3>Welcome {{dataService.currentUser.name}}</h3>
+                    <form [formGroup]="withdrawalForm" (ngSubmit)="withdraw()">
                     <table>
                         <tr>
                         <td>accno</td>
-                        <td><input (change)= "acnoSet($event)" type="text" id ="acnt"></td>
+                        <div>
+
+   
+                        <td><input formControlName="acno" type="text" id ="acnt"></td>
+                        </div>
+                        <div *ngIf="getErrors('acno')" class="error">Accnumber is Invalid</div>
                         </tr>
                         <tr>
                             <td>Pin</td>
-                            <td><input (change)="pinSet($event)" type="text" id ="pint"></td>
+                            <div>
+                            <td><input formControlName="pin" type="text" id ="pint"></td>
+                            </div>
+                            <div *ngIf="getErrors('pin')" class="error">Pin is Invalid</div>
                          </tr>
                         <tr>
                             <td>Amount</td>
-                            <td><input (change)="amtSet($event)" type="text" id="amtt"> </td>
+                            <td><input  formControlName="amt"  type="text" id="amtt"> </td>
                          </tr>
                         <tr>
-                           <td><input type="button" (click)="withdraw()" value="withdraw"></td>
+                           <td><button type="submit" class= btn-btn-primary>withdraw</button></td>
 
                             
                         </tr>
                     </table>
+                    </form>
+                    </div>
 
 
                 </div>
         </div>
     </div>
+    
 
 </body>

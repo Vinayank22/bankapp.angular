@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,86 +9,104 @@ import { DataService } from '../services/data.service';
 })
 export class DashboardComponent implements OnInit {
   
- acno="";
- pin="";
- amt="";
-  constructor(public dataService:DataService) { }
+ 
+
+ dashboardForm=this.fb.group({
+  
+  acno:['',[Validators.required],Validators.minLength[4]],
+  pin:['',[Validators.required]],
+  amt:['',[Validators.required]]
+
+ });
+
+  withdrawalForm=this.fb.group({
+
+    acno:['',[Validators.required],Validators.minLength[4]],
+    pin:['',[Validators.required]],
+    amt:['',[Validators.required]]
+  
+
+
+  });
+
+
+
+  constructor(public dataService:DataService,private fb:FormBuilder) { }
+
+
+  getError(field){
+    return (this.dashboardForm.get(field).touched || this.dashboardForm.get(field).dirty)&&this.dashboardForm.get(field).errors
+  
+  }
+
+  getErrors(field){
+    return (this.withdrawalForm.get(field).touched || this.withdrawalForm.get(field).dirty)&&this.withdrawalForm.get(field).errors
+
+  }
 
   acnoSet(event)
   {
-    this.acno=event.target.value;
+    this.dashboardForm.value.acno=event.target.value;
   }
   
   pinSet(event)
   {
-    this.pin=event.target.value;
+    this.dashboardForm.value.pin=event.target.value;
   }
 
   amtSet(event){
-    this.amt=event.target.value;
+    this.dashboardForm.value.amt=event.target.value;
   }
 
   deposit(){
+    if(this.dashboardForm.valid){
+      const result =this.dataService.deposit(this.dashboardForm.value.acno,this.dashboardForm.value.pin,this.dashboardForm.value.amt)
+      console.log(this.dashboardForm.value.acno);
+      if(result){
     
-
-    var acc=this.acno;
-    var pp=this.pin;
-    var amd=parseInt(this.amt);
-
-    var details=this.dataService.accountDetails
-
-    if(acc in details){
-       
-        console.log(acc);
-      let mpin=details[acc].pin;
-        console.log(mpin);
-
-        if(pp==mpin){
-            var bal=details[acc].balance;
             //alert (bal);
             //alert(amd);
             alert("amount has been credited");
-            var res=(bal+amd);
-            alert(res);
-            console.log(res);
+            alert(this.dataService.currentUser);
+           
             
-            
-            
+            //console.log(res);
+      }
+      else{
+        alert("Invalid Credentials");
+      }    
         
     }
+    else{
+      alert("Form invalid");
+    }
 }
-  }
+  
 
 
   withdraw(){
+             
+    if(this.withdrawalForm.valid){
+      const result =this.dataService.withdraw(this.withdrawalForm.value.acno,this.withdrawalForm.value.pin,this.withdrawalForm.value.amt)
+      console.log(this.withdrawalForm.value.acno);
+      if(result){
 
-    var acnt=this.acno;
-    var pi=this.pin;
-    var amt=parseInt(this.amt)
-
-    let db=this.dataService.accountDetails;
-
-    if(acnt in db){
-        console.log(acnt);
-
-        let wpin=db[acnt].pin;
-
-        if(pi==wpin){
-
-            db[acnt].balance-=amt;
+    
             alert("amount withdrawn successfully");
-            alert(db[acnt].balance);
+            alert(this.dataService.currentUser);
             
         }
+        else{
+          alert("Invalid credentials");
+        }
     }
-
-
-
-
-
-
+    else{
+      alert("Invalid Form");
+    }
+    
 
 }
+
 
 
   ngOnInit(): void {
