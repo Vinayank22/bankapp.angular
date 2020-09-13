@@ -66,8 +66,8 @@ export class DashboardComponent implements OnInit {
     
             //alert (bal);
             //alert(amd);
-            alert("amount has been credited");
-            alert(this.dataService.currentUser);
+            alert(result.message);
+            alert(result.Balance);
            
             
             //console.log(res);
@@ -92,8 +92,8 @@ export class DashboardComponent implements OnInit {
       if(result){
 
     
-            alert("amount withdrawn successfully");
-            alert(this.dataService.currentUser);
+            alert(result.message);
+            alert(result.Balance);
             
         }
         else{
