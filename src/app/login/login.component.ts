@@ -39,25 +39,33 @@ loginForm=this.fb.group({
   login(){
   
     if(this.loginForm.valid){
-      const result =this.dataService.login(this.loginForm.value.acno,this.loginForm.value.pwd);
-      if(result){
-       alert("login success");
-        this.router.navigateByUrl("dashboard");
-  
+      this.dataService.login(this.loginForm.value.acno,this.loginForm.value.pwd)
+      .subscribe((data:any)=>{
         
-      }
+        if(data){
+          localStorage.setItem("name",data.name)
+          alert("login success");
+          
+           this.router.navigateByUrl("dashboard");
+        }
+     
+      },(data)=>{
+        alert(data.error.message)
+      })
+    }
+  
       else{
         alert("Invalid Credentials")
       }
     }
-    else{
-      alert("This form is Invalid");
-      return;
-    }
+    //else{
+      //alert("This form is Invalid");
+      //return;
+    //}
    
   }
 
-}
+//}
 
     
 

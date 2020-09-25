@@ -5,7 +5,7 @@
             <div class ="col">
                <h1> Deposit </h1>
                <div class="jumbotron">
-               <h3>Welcome {{dataService.currentUser.name}}</h3>
+               <h3>Welcome {{name}}</h3>
                <a routerLink="/TransactionHistory">View Transactions</a>
                 <form [formGroup]="dashboardForm" (ngSubmit)="deposit()">
                 <table>
@@ -41,7 +41,7 @@
                 <div class ="col">
                     <h1>Withdraw</h1>
                     <div class="jumbotron">
-                    <h3>Welcome {{dataService.currentUser.name}}</h3>
+                    <h3>Welcome {{name}}</h3>
             
                     <form [formGroup]="withdrawalForm" (ngSubmit)="withdraw()">
                     <table>

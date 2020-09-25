@@ -29,9 +29,11 @@ export class DashboardComponent implements OnInit {
 
   });
 
+  name="";
 
-
-  constructor(public dataService:DataService,private fb:FormBuilder) { }
+  constructor(public dataService:DataService,private fb:FormBuilder) {
+    this.name=localStorage.getItem('name')
+   }
 
 
   getError(field){

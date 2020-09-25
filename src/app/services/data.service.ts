@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JsonPipe } from '@angular/common';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class DataService {
 
   currentUser;
 
-  constructor() { 
+  constructor(private http:HttpClient) { 
     this.getDetails();
   }
 
@@ -47,44 +48,48 @@ export class DataService {
   }
 
   register(name, acno, pin, pwd) {
-    if (acno in this.accountDetails) {
-      alert("its Already there change accno")
-      return false;
-    }
-    this.accountDetails[acno] = {
+   
+    const data = {
       name,
       acno,
       pin,
-      password: pwd,
+      pwd,
       balance: 0,
       transactions:[]
 
 
     }
-    console.log(this.accountDetails);
-    this.setDetails();
-    return true;
+    return this.http.post("http://localhost:4000/register",data)
+    //console.log(this.accountDetails);
+    //his.setDetails();
+    //eturn true;
   }
 
 
   login(acno1, pwd) {
     //console.log(abc.value);
     //console.log(defg.value)// Template Referencing
-    var acno = parseInt(acno1);
+    //var acno = parseInt(acno1);
 
-    var data = this.accountDetails;
-    console.log(acno in data);
-    if (acno in data) {
-      let pd = data[acno].password
-      console.log(pd);
-      if (pd == pwd) {
-        this.currentUser = data[acno];
-        this.setDetails();
-        return true;
+    //var data = this.accountDetails;
+    const data = {
+      acno1,
+      pwd
+    }
+    return this.http.post("http://localhost:4000/login",data)
+    
+    //console.log(acno in data);
+    //if (acno in data) {
+      //let pd = data[acno].password
+      //console.log(pd);
+      //if (pd == pwd) {
+        //this.currentUser = data[acno];
+        //this.setDetails();
+        //return true;
         
 
-      }
-    }
+      //}
+    //}
   }
   deposit(acno1, pp, amt) {
     var acc = parseInt(acno1);
