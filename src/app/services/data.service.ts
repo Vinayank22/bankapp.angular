@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
+const options={
+  withCredentials:true
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,7 +37,12 @@ export class DataService {
 
   getTransactionDetails()
   {
-   return this.accountDetails[this.currentUser.acno].transactions;
+   //return this.accountDetails[this.currentUser.acno].transactions;
+   return this.http.get("http://localhost:4000/transactionHistory",options)
+  }
+  deleteTransactionDetails(id)
+  {
+    return this.http.delete("http://localhost:4000/transactionHistory/"+id,options)
   }
 
   getDetails(){
@@ -67,6 +76,7 @@ export class DataService {
 
 
   login(acno1, pwd) {
+    //withCredentials:true
     //console.log(abc.value);
     //console.log(defg.value)// Template Referencing
     //var acno = parseInt(acno1);
@@ -75,8 +85,9 @@ export class DataService {
     const data = {
       acno1,
       pwd
+      
     }
-    return this.http.post("http://localhost:4000/login",data)
+    return this.http.post("http://localhost:4000/login",data,options)
     
     //console.log(acno in data);
     //if (acno in data) {
@@ -91,92 +102,110 @@ export class DataService {
       //}
     //}
   }
-  deposit(acno1, pp, amt) {
-    var acc = parseInt(acno1);
+  deposit(acno1, pin, amt) {
+    var acno = parseInt(acno1);
     //var pp=this.dashboardForm.value.pin;
     //var amt = parseInt(amd);
     console.log(amt);
+    const data = {
+      acno,
+      pin,
+      amt
 
-    var details = this.accountDetails
+    }
+    return this.http.post("http://localhost:4000/deposit",data,options)
+    
 
-    if (acc in details) {
+
+    //var details = this.accountDetails
+
+    //if (acc in details) {
 
 
       //console.log(acc);
-      let mpin = details[acc].pin;
+      //let mpin = details[acc].pin;
       //console.log(mpin);
       //var bal = details[acc].balance;
       // console.log(bal);
       //var bala = parseInt(bal);
       // console.log(bala);
-      if (pp == mpin) {
-        details[acc].balance+=parseInt(amt);
-        details[acc].transactions.push({
+      //if (pp == mpin) {
+        //details[acc].balance+=parseInt(amt);
+        //details[acc].transactions.push({
 
-          Amount:amt,
-          Type:"Credit"
-        })
+          //Amount:amt,
+          //Type:"Credit"
+        //})
     
         
       
         //console.log(res);
-        this.setDetails();
+        //this.setDetails();
 
-        return{
-          status:true,
-          message:"Amount has been credited",
-          Balance:details[acc].balance
-        }
+        //return{
+          //status:true,
+          //message:"Amount has been credited",
+          //Balance:details[acc].balance
+        //}
 
-      }
+      //}
 
-    }
+    //}
   }
 
-  withdraw(acno1, pi, amt) {
-    var acnt = parseInt(acno1);
+  withdraw(acno, pin, amt) {
+    //var acnt = parseInt(acno1);
     //var pi=this.dashboardForm.value.pin;
-    var amd = parseInt(amt)
+    //var amd = parseInt(amt)
+    
+    const data = {
+      acno,
+      pin,
+      amt
 
-    let db = this.accountDetails;
+    }
+    return this.http.post("http://localhost:4000/withdraw",data,options)
+  }
+    
+    //let db = this.accountDetails;
 
-    if (acnt in db) {
-      console.log(acnt);
+    //if (acnt in db) {
+      //console.log(acnt);
 
-      let wpin = db[acnt].pin;
-       if(db[acnt].balance<amd)
-       return{
-         status:false,
-         message:"Insufficient Balance",
-         Balance:db[acnt].balance
+      //let wpin = db[acnt].pin;
+       //if(db[acnt].balance<amd)
+       //return{
+         //status:false,
+         //message:"Insufficient Balance",
+         //Balance:db[acnt].balance
         
-       }
+       //}
 
-      if (pi == wpin) {
-        db[acnt].balance -=amd;
-        db[acnt].transactions.push({
-          Amount:amd,
-          Type:"debit"
-        })
+      //if (pi == wpin) {
+        //db[acnt].balance -=amd;
+        //db[acnt].transactions.push({
+          //Amount:amd,
+          //Type:"debit"
+        //})
 
         //this.currentUser = db[acnt].balance;
-        this.setDetails();
-        return{
-          status:true,
-          message:"Amount has been debited",
-          Balance:db[acnt].balance
-        }
+        //this.setDetails();
+        //return{
+          //status:true,
+          //message:"Amount has been debited",
+          //Balance:db[acnt].balance
+        //}
 
-      }
-      else{
-        return{
-          staus:false,
-          message:"insufficent  balance"
+      //}
+      //else{
+        //return{
+          //staus:false,
+          //message:"insufficent  balance"
           
-        }
-      }
-    }
-  }
+        //}
+      //}
+    //}
+  //}
 
 
 }

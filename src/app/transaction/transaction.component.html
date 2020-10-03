@@ -4,18 +4,23 @@
             <div class="col">
                 <h1>Transaction History</h1>
                 <div class="jumbotron">
+                    <app-delete-confirmation (onDelete)="onDelete($event)" (onCancel)="onCancel($event)" [id]="IdToBeDeleted"> </app-delete-confirmation>
                     <table>
                         <thead>
                             <tr>
-                                <th>Account</th>
+                                <th>Id</th>
+                                <th>Amount</th>
                                 <th>Type</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let transaction of transactions">
-                                <td>{{transaction.Amount}}</td>
 
-                                <td>{{transaction.Type}}</td>
+                            <tr *ngFor="let transaction of transactions">
+                                <td>{{transaction._id }}</td>
+                                <td>{{transaction.amount}}</td>
+
+                                <td>{{transaction.typeOfTransactions}}</td>
+                                <td><button class="btn btn-primary" (click)="showConfirmationDialog(transaction._id)">Delete</button></td>
                             </tr>
 
                         </tbody>

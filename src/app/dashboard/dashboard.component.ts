@@ -8,106 +8,102 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  
- 
 
- dashboardForm=this.fb.group({
-  
-  acno:['',[Validators.required],Validators.minLength[4]],
-  pin:['',[Validators.required]],
-  amt:['',[Validators.required]]
 
- });
 
-  withdrawalForm=this.fb.group({
+  dashboardForm = this.fb.group({
 
-    acno:['',[Validators.required],Validators.minLength[4]],
-    pin:['',[Validators.required]],
-    amt:['',[Validators.required]]
-  
+    acno: ['', [Validators.required], Validators.minLength[4]],
+    pin: ['', [Validators.required]],
+    amt: ['', [Validators.required]]
+
+  });
+
+  withdrawalForm = this.fb.group({
+
+    acno: ['', [Validators.required], Validators.minLength[4]],
+    pin: ['', [Validators.required]],
+    amt: ['', [Validators.required]]
+
 
 
   });
 
-  name="";
+  name = "";
 
-  constructor(public dataService:DataService,private fb:FormBuilder) {
-    this.name=localStorage.getItem('name')
-   }
-
-
-  getError(field){
-    return (this.dashboardForm.get(field).touched || this.dashboardForm.get(field).dirty)&&this.dashboardForm.get(field).errors
-  
+  constructor(public dataService: DataService, private fb: FormBuilder) {
+    this.name = localStorage.getItem('name')
   }
 
-  getErrors(field){
-    return (this.withdrawalForm.get(field).touched || this.withdrawalForm.get(field).dirty)&&this.withdrawalForm.get(field).errors
+
+  getError(field) {
+    return (this.dashboardForm.get(field).touched || this.dashboardForm.get(field).dirty) && this.dashboardForm.get(field).errors
 
   }
 
-  acnoSet(event)
-  {
-    this.dashboardForm.value.acno=event.target.value;
-  }
-  
-  pinSet(event)
-  {
-    this.dashboardForm.value.pin=event.target.value;
+  getErrors(field) {
+    return (this.withdrawalForm.get(field).touched || this.withdrawalForm.get(field).dirty) && this.withdrawalForm.get(field).errors
+
   }
 
-  amtSet(event){
-    this.dashboardForm.value.amt=event.target.value;
+  acnoSet(event) {
+    this.dashboardForm.value.acno = event.target.value;
   }
 
-  deposit(){
-    if(this.dashboardForm.valid){
-      const result =this.dataService.deposit(this.dashboardForm.value.acno,this.dashboardForm.value.pin,this.dashboardForm.value.amt)
-      console.log(this.dashboardForm.value.acno);
-      if(result){
-    
-            //alert (bal);
-            //alert(amd);
-            alert(result.message);
-            alert(result.Balance);
-           
-            
-            //console.log(res);
-      }
-      else{
-        alert("Invalid Credentials");
-      }    
-        
+  pinSet(event) {
+    this.dashboardForm.value.pin = event.target.value;
+  }
+
+  amtSet(event) {
+    this.dashboardForm.value.amt = event.target.value;
+  }
+
+  deposit() {
+    if (this.dashboardForm.valid) {
+      this.dataService.deposit(this.dashboardForm.value.acno, this.dashboardForm.value.pin, this.dashboardForm.value.amt)
+        //console.log(this.dashboardForm.value.acno);
+        .subscribe((result: any) => {
+
+          //alert (bal);
+          //alert(amd);
+          alert(result.message);
+          alert(result.Balance);
+
+
+          //console.log(res);
+        }, result => {
+          alert("Invalid Credentials");
+        })
+
     }
-    else{
+    else {
       alert("Form invalid");
     }
-}
-  
+  }
 
 
-  withdraw(){
-             
-    if(this.withdrawalForm.valid){
-      const result =this.dataService.withdraw(this.withdrawalForm.value.acno,this.withdrawalForm.value.pin,this.withdrawalForm.value.amt)
-      console.log(this.withdrawalForm.value.acno);
-      if(result){
 
-    
-            alert(result.message);
-            alert(result.Balance);
-            
-        }
-        else{
+  withdraw() {
+
+    if (this.withdrawalForm.valid) {
+      this.dataService.withdraw(this.withdrawalForm.value.acno, this.withdrawalForm.value.pin, this.withdrawalForm.value.amt)
+        //console.log(this.withdrawalForm.value.acno);
+        .subscribe((result: any)=> { 
+
+
+          alert(result.message);
+          alert(result.Balance);
+
+        }, result => {
           alert("Invalid credentials");
-        }
+        })
     }
-    else{
+    else {
       alert("Invalid Form");
     }
-    
 
-}
+
+  }
 
 
 
